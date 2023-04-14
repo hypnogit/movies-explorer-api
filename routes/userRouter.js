@@ -8,7 +8,7 @@ const { auth } = require('../middlewares/auth');
 userRouter.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().required(),
     name: Joi.string().min(2).max(30).required(),
   }),
 }), createUser);
@@ -16,7 +16,7 @@ userRouter.post('/signup', celebrate({
 userRouter.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
+    password: Joi.string().required(),
   }),
 }), login);
 

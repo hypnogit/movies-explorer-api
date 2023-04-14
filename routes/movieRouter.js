@@ -19,7 +19,7 @@ movieRouter.post('/movies', celebrate({
     description: Joi.string().required(),
     image: Joi.string().required().regex(urlRegex),
     thumbnail: Joi.string().required().regex(urlRegex),
-    movieId: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 }), postMovie);
 

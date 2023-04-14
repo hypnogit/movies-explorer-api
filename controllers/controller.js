@@ -30,7 +30,9 @@ module.exports.updateProfile = (req, res, next) => {
       res.send(user);
     })
     .catch((error) => {
-      if (error.name === 'ValidationError') {
+      if (error.code === 11000) {
+        next(new Conflict('Пользователь с таким емейлом уже зарегистрирован'));
+      } else if (error.name === 'ValidationError') {
         next(new BadRequest('Получены неккоретные данные'));
       } else {
         next(error);
@@ -92,7 +94,9 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  Movie.find({
+    owner: req.user._id,
+  })
     .then((movies) => res.send(movies))
     .catch((error) => next(error));
 };
